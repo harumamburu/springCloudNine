@@ -1,0 +1,19 @@
+words: fallback
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+---
+spring:
+  config:
+    activate.on-profile: cold-noun
+words: icicle,refrigerator,blizzard,snowball
+
+---
+spring:
+  config:
+    activate.on-profile: cold-adjective
+words: icy,sparkling,white,chilling
