@@ -1,0 +1,10 @@
+wordConfig:
+  preamble: The lucky word is
+  luckyWord: Horseshoe
+
+---
+spring:
+  config:
+    activate.on-profile: europe
+wordConfig:
+  luckyWord: Cloverleaf
