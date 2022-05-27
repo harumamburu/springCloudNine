@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: lucky-word-client
+  config:
+    import: optional:configserver:http://localhost:8001
+  rabbitmq:
+    addresses: 192.168.99.100:5672
+
+server:
+  port: 8002
+
+wordConfig:
+  preamble: Falling back to
+  luckyWord: backup

@@ -1,10 +1,28 @@
-words: fallback
+spring:
+  application:
+    name: word-service-${app.name.postfix:${sentence.part}}
+  profiles:
+    active: ${sentence.part} # subject, verb, article, adjective, noun
+  config:
+    import: configserver:http://localhost:8001
+  cloud:
+    config:
+      name: word-service
+
+server:
+  port: ${PORT:${SERVER_PORT:0}}
+
+eureka:
+  instance:
+    instanceId: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info
+
+words: fallback
 
 ---
 spring:
