@@ -1,0 +1,14 @@
+server:
+  port: 8020
+
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: configserver:http://localhost:8001
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
