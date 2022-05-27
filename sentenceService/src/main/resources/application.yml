@@ -12,9 +12,11 @@ management:
     web:
       exposure:
         include: health,info
+  endpoint:
+    health:
+      show-details: always
   health:
-    circuitbreakers:
-      enabled: true
+    circuitbreakers.enabled: true
 
 feign:
   circuitbreaker:
