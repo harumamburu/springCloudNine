@@ -1,0 +1,54 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: subject
+          uri: lb://word-service-subject
+          predicates:
+            - Path=/subject
+          filters:
+            - SetPath=/api/word
+            - name: CircuitBreaker
+              args:
+                name: subjectCircuitBreaker
+                fallbackUri: forward:/fallback/subject
+        - id: verb
+          uri: lb://word-service-verb
+          predicates:
+            - Path=/verb
+          filters:
+            - SetPath=/api/word
+            - name: CircuitBreaker
+              args:
+                name: verbCircuitBreaker
+                fallbackUri: forward:/fallback/verb
+        - id: article
+          uri: lb://word-service-article
+          predicates:
+            - Path=/article
+          filters:
+            - SetPath=/api/word
+            - name: CircuitBreaker
+              args:
+                name: articlebCircuitBreaker
+                fallbackUri: forward:/fallback/empty
+        - id: adjective
+          uri: lb://word-service-adjective
+          predicates:
+            - Path=/adjective
+          filters:
+            - SetPath=/api/word
+            - name: CircuitBreaker
+              args:
+                name: adjectivebCircuitBreaker
+                fallbackUri: forward:/fallback/empty
+        - id: noun
+          uri: lb://word-service-noun
+          predicates:
+            - Path=/noun
+          filters:
+            - SetPath=/api/word
+            - name: CircuitBreaker
+              args:
+                name: nounbCircuitBreaker
+                fallbackUri: forward:/fallback/noun

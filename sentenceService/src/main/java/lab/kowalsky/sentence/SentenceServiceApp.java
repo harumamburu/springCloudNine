@@ -1,6 +1,5 @@
 package lab.kowalsky.sentence;
 
-import lab.kowalsky.sentence.client.loadbalancer.config.LoadBalancerConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

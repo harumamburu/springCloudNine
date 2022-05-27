@@ -1,6 +1,7 @@
-package lab.kowalsky.sentence.client.loadbalancer.config;
+package lab.kowalsky.sentence.client.loadbalancer;
 
 import feign.Feign;
+import lab.kowalsky.sentence.client.loadbalancer.config.LoadBalancerConfiguration;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClient;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClients;

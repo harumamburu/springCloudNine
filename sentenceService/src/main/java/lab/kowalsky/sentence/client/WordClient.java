@@ -4,6 +4,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 public interface WordClient {
 
-    @GetMapping("/")
+    @GetMapping("/api/word")
     String getWord();
 }
