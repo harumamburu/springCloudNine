@@ -10,4 +10,4 @@ FROM openjdk:18-jdk-alpine
 WORKDIR /usr/app
 
 COPY --from=gradle /home/gradle/project/build/libs/sentenceService.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar"]
