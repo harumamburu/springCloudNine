@@ -1,0 +1,9 @@
+.git
+.gradle
+.idea
+build
+gradle
+gradlew
+gradlew.bat
+.dockerignore
+Dockerfile

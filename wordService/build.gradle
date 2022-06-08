@@ -34,6 +34,16 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+task renameJar (type: Copy) {
+    from 'build/libs/'
+    include "${rootProject.name}-${version}.jar"
+    into 'build/libs/'
+    rename "${rootProject.name}-${version}.jar", "${rootProject.name}.jar"
+}
+tasks.named('build') {
+    finalizedBy('renameJar')
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }

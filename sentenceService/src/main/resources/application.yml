@@ -2,7 +2,7 @@ spring:
   application:
     name: sentence-service
   config:
-    import: configserver:http://localhost:8001
+    import: configserver:http://config-server:8001
 
 server:
   port: 8005

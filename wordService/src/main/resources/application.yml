@@ -4,7 +4,7 @@ spring:
   profiles:
     active: ${sentence.part} # subject, verb, article, adjective, noun
   config:
-    import: configserver:http://localhost:8001
+    import: configserver:http://config-server:8001
   cloud:
     config:
       name: word-service
