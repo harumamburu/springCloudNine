@@ -52,3 +52,9 @@ spring:
               args:
                 name: nounbCircuitBreaker
                 fallbackUri: forward:/fallback/noun
+        - id: sentence
+          uri: lb://sentence-service
+          predicates:
+            - Path=/sentence
+          filters:
+            - SetPath=/api/sentence

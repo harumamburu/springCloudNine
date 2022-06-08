@@ -1,0 +1,189 @@
+version: '3'
+
+networks:
+  serv-network:
+    driver: bridge
+
+services:
+  rabbit-mq:
+    image: rabbitmq:management
+    container_name: rabbit
+    networks:
+      - serv-network
+  config-server:
+    build:
+      context: ./cloudConfigServer
+    image: cloud9/configserver:latest
+    depends_on:
+      - rabbit-mq
+    ports:
+      - 8001:8001
+    networks:
+      - serv-network
+  eureka-primary:
+    build:
+      context: ./eurekaServer
+    image: cloud9/eurekaserver:latest
+    depends_on:
+      - config-server
+    ports:
+      - 8010:8010
+    networks:
+      - serv-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 60s
+        max_attempts: 4
+  eureka-secondary:
+    build:
+      context: ./eurekaServer
+    image: cloud9/eurekaserver:latest
+    command:
+      - --spring.profiles.active=secondary
+    depends_on:
+      - config-server
+    ports:
+      - 8011:8011
+    networks:
+      - serv-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 60s
+        max_attempts: 4
+  word-subject:
+    build:
+      context: ./wordService
+    image: cloud9/wordservice:latest
+    command:
+      - --sentence.part=subject
+    depends_on:
+      - eureka-primary
+    networks:
+      - serv-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 120s
+        max_attempts: 4
+  word-verb:
+    build:
+      context: ./wordService
+    image: cloud9/wordservice:latest
+    command:
+      - --sentence.part=verb
+    depends_on:
+      - eureka-primary
+    networks:
+      - serv-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 120s
+        max_attempts: 4
+  word-article:
+    build:
+      context: ./wordService
+    image: cloud9/wordservice:latest
+    command:
+      - --sentence.part=article
+    depends_on:
+      - eureka-primary
+    networks:
+      - serv-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 120s
+        max_attempts: 4
+  word-adjective:
+    build:
+      context: ./wordService
+    image: cloud9/wordservice:latest
+    command:
+      - --sentence.part=adjective
+    depends_on:
+      - eureka-primary
+    networks:
+      - serv-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 120s
+        max_attempts: 4
+  word-noun:
+    build:
+      context: ./wordService
+    image: cloud9/wordservice:latest
+    command:
+      - --sentence.part=noun
+    depends_on:
+      - eureka-primary
+    networks:
+      - serv-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 120s
+        max_attempts: 4
+  word-cold-adjective:
+    build:
+      context: ./wordService
+    image: cloud9/wordservice:latest
+    command:
+      - --sentence.part=cold-adjective
+      - --app.name.postfix=adjective
+    depends_on:
+      - eureka-primary
+    networks:
+      - serv-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 120s
+        max_attempts: 4
+  word-cold-noun:
+    build:
+      context: ./wordService
+    image: cloud9/wordservice:latest
+    command:
+      - --sentence.part=cold-noun
+      - --app.name.postfix=noun
+    depends_on:
+      - eureka-primary
+    networks:
+      - serv-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 120s
+        max_attempts: 4
+  sentence:
+    build:
+      context: ./sentenceService
+    image: cloud9/sentenceservice:latest
+    depends_on:
+      - eureka-primary
+    networks:
+      - serv-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 120s
+        max_attempts: 4
+  api-gateway:
+    build:
+      context: ./apiGateway
+    image: cloud9/apigateway:latest
+    depends_on:
+      - eureka-primary
+    ports:
+      - 8020:8020
+    networks:
+      - serv-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 120s
+        max_attempts: 4
