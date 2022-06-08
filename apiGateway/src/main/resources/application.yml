@@ -6,6 +6,8 @@ spring:
     name: api-gateway
   config:
     import: configserver:http://config-server:8001
+  rabbitmq:
+    addresses: rabbit-mq:5672
 
 management:
   endpoints:

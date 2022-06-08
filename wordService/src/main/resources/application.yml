@@ -5,6 +5,8 @@ spring:
     active: ${sentence.part} # subject, verb, article, adjective, noun
   config:
     import: configserver:http://config-server:8001
+  rabbitmq:
+    addresses: rabbit-mq:5672
   cloud:
     config:
       name: word-service

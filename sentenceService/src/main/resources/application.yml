@@ -3,6 +3,8 @@ spring:
     name: sentence-service
   config:
     import: configserver:http://config-server:8001
+  rabbitmq:
+    addresses: rabbit-mq:5672
 
 server:
   port: 8005
